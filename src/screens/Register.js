@@ -63,3 +63,19 @@ class Register extends Component {
     )
   }
 }
+const styles =  StyleSheet.create({
+    input:{
+      borderWidth:1,
+      borderColor:'red',
+      marginTop:16
+    },
+    btn:{
+      flex:1,
+      marginVertical:16,
+      padding:16,
+      borderWidth:1,
+      borderColor:'blue'
+    }
+  })
+  
+  export default Register
