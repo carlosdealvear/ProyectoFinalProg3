@@ -9,7 +9,7 @@ import Register from "../screens/Register";
 import { StatusBar } from 'expo-status-bar';
 import TabNavigation from './TabNavigation';
 import NewMessage from '../screens/Message'
-import AddComment from '../screens/AddComment'
+import Comment from '../screens/Comment'
 
 
 const Stack = createNativeStackNavigator()
@@ -91,8 +91,8 @@ class StackNavigation extends Component{
                             }
                             />
                             <Stack.Screen 
-                            name='AddComment'
-                            component={AddComment}
+                            name='Comment'
+                            component={Comment}
                             />
                             <Stack.Screen
                                 name='Message'
