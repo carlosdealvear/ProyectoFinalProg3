@@ -24,7 +24,7 @@ class NewPost extends Component {
 
         return (
             <View>
-                    <Text>Enviar mensaje</Text>
+                    <Text>Agregar un comentario</Text>
                     <TextInput 
                     style={styles.textarea}
                     onChangeText= {(text)=> this.setState({
