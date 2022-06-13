@@ -12,7 +12,7 @@ class NewPost extends Component {
 
     newPost(message){
         db.collection('posts').add({
-            owner:auth.currentUser.email,
+            owner: auth.currentUser.email,
             createdAt: Date.now(),
             message:message,
         })
