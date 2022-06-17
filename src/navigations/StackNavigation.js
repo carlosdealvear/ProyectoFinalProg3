@@ -8,8 +8,8 @@ import Home from "../screens/Home";
 import Register from "../screens/Register";
 import { StatusBar } from 'expo-status-bar';
 import TabNavigation from './TabNavigation';
-import NewMessage from '../screens/Message'
-import Comment from '../screens/Comment'
+import NewPost from '../screens/NewPost'
+import Comments from '../screens/Comments'
 
 
 const Stack = createNativeStackNavigator()
@@ -39,10 +39,10 @@ class StackNavigation extends Component{
     }
 
     
-    signUp(email, password){
+    signUp(email, password, username){
         auth.createUserWithEmailAndPassword(email, password)
-        .then(response => this.setState({logedIn: true}, ()=> console.log(this.state.logedIn)))
-        .catch(error => this.setState({errorMessage:error.message}))
+        .then(response => this.setState({loggedIn: true}, ()=> console.log(this.state.loggedIn)))
+        .catch(error => console.log(error))
     }
 
 
@@ -91,16 +91,10 @@ class StackNavigation extends Component{
                             }
                             />
                             <Stack.Screen 
-                            name='Comment'
-                            component={Comment}
+                            name='Comments'
+                            component={Comments}
                             />
-                            <Stack.Screen
-                                name='Message'
-                                component={NewMessage}
-                                initialParams={{
-                                    newMessage: (message)=> this.newMessage(message)                                    
-                                }}
-                            />
+                            
                         </Stack.Group>
                         :
                         <Stack.Group>
@@ -109,7 +103,6 @@ class StackNavigation extends Component{
     
                                 children={
                                     (props)=> <Register 
-                                    signUp={(email, password)=> this.signUp(email, password)}
                                     errorMessage={this.state.errorMessage}
                                     {...props}
                                     />
@@ -118,6 +111,9 @@ class StackNavigation extends Component{
                                 options={{
                                     headerShown:false
                                 }}
+
+                                initialParams={{signUp: (email, password, username)=> this.signUp(email, password, username)}}
+
                             />
                             <Stack.Screen 
                             name='Login' 

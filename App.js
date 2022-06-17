@@ -1,8 +1,8 @@
 import React from "react";
-import NewPost from "./src/screens/NewPost";
+import StackNavigation from "./src/navigations/StackNavigation"
 
 export default function App() {
   return (
-    <NewPost/>
+  <StackNavigation/>
   );
 }

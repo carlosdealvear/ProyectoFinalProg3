@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet } from 'react-native'
 import React, {Component} from 'react'
-import {db} from '../../firebase/config'
-import Post from '../../components/Post'
+import {db} from '../firebase/config'
+import Post from '../components/Post'
 
 class Home extends Component {
   constructor(props){
@@ -14,19 +14,19 @@ class Home extends Component {
   }
 
   componentDidMount(){
-    db.collection('posts').onSnapshot(
+    db.collection('posts').orderBy("createdAt","desc").onSnapshot(
       (docs)=>{
-        let messages = []
+        let posts = []
         docs.forEach(
           doc => {
-            messages.push({
+            posts.push({
               id:doc.id,
               data: doc.data()
             })
           }
         )
         this.setState({
-          info:messages,
+          info:posts,
           loading:false
         })
 
@@ -44,6 +44,9 @@ class Home extends Component {
          this.state.loading ?
          <ActivityIndicator size={32} color='red'/>
          : 
+         this.state.info.length == 0?
+         <Text> No hay posteos </Text>
+            :
          <FlatList
          data={this.state.info}
          keyExtractor={item => item.id.toString()}
@@ -54,7 +57,7 @@ class Home extends Component {
 
 
         <TouchableOpacity style={styles.btn} onPress={()=> this.props.navigation.navigate('NewPost')}>
-          <Text style={styles.textBtn}>Enviar posteo a Facu</Text>
+          <Text style={styles.textBtn}>Enviar posteo</Text>
         </TouchableOpacity>
       </View>
     )

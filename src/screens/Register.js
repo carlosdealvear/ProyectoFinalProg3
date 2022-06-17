@@ -1,31 +1,22 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React, {Component} from 'react'
-import { auth } from '../../firebase/config';
+import { auth } from '../firebase/config';
 
 class Register extends Component {
   constructor(props){
     super(props);
     this.state={
       email:'',
-      userName:'',
+      username:'',
       password:'',
       logedIn:false,
       error:null,
       message:''
     }
   }
-    
-    componentDidMount(){
-    auth.onAuthStateChanged((user)=>{
-
-    })
-  }
-  
-
   
   render(){
-    const {signUp} = this.props
 
     return (
       <View>
@@ -37,6 +28,12 @@ class Register extends Component {
         />
         <TextInput
           style={styles.input}
+          onChangeText={text => this.setState({username: text})}
+          keyboardType='default'
+          placeholder='Nombre de Usuario'
+          />
+        <TextInput
+          style={styles.input}
           onChangeText={text => this.setState({password: text})}
           keyboardType='default'
           placeholder='password'
@@ -44,7 +41,7 @@ class Register extends Component {
         />
         <TouchableOpacity style={styles.btn} onPress={
           () => {
-            signUp(this.state.email, this.state.password)
+            this.props.route.params.signUp(this.state.email, this.state.password, this.state.username)
           }}>
           <Text>
             Register
