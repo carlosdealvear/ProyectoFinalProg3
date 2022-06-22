@@ -26,7 +26,7 @@ class Login extends Component {
           placeholder='password'
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.btn} onPress={() => signIn(this.state.email, this.state.password)}>
+        <TouchableOpacity style={styles.btn} onPress={() => this.props.signIn(this.state.email, this.state.password)}>
           <Text>
             Login
           </Text>

@@ -111,18 +111,18 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     prueba: {
-        height: 500
+        height: 400
     },
     camara:{
       flex:7  
     },
     image: {
-        height: 500
+        height: 300
     },
     button:{
         flex:1,
-        justifyContent:'center',
-        alignItems: 'center'
+        justifyContent:'top',
+        alignItems: 'top'
     },
     CameraBody:{
         height: 1000,

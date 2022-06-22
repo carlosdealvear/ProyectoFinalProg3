@@ -6,7 +6,7 @@ class Profile extends Component {
         return (
             <View>
               <Text>Profile</Text>
-              <TouchableOpacity onPress={()=> props.route.params.logout()}>
+              <TouchableOpacity onPress={()=> this.props.route.params.logout()}>
                   <Text>
                       Cerrar sesion
                   </Text>
