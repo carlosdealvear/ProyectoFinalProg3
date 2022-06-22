@@ -40,8 +40,11 @@ class Post extends Component {
 
     like(){
         const documento = this.props.info
-        db.collection('posts').doc(documento.id).update({
-            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
+        db.collection('posts')
+            .doc(documento.id)
+            .update({
+                likes: 
+                firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
         })
         .then(response => {
             this.setState({
@@ -54,8 +57,10 @@ class Post extends Component {
 
     unlike(){
         const documento = this.props.info
-        db.collection('posts').doc(documento.id).update({
-            likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
+        db.collection('posts')
+            .doc(documento.id)
+            .update({
+                likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
         })
         .then(
             this.setState({

@@ -71,9 +71,8 @@ class MiCamara extends Component {
                         this.state.mostrarCamara === false
                         ?
                         <>
-                            <Text>Aqui vamos a mostrar la imagen y el aceptar y rechazar</Text>
                             <Image
-                            style={styles.camara}
+                            style={styles.image}
                             source={{uri: this.state.urlFoto}}
                             />
                             <View style={styles.buttons}>
@@ -86,7 +85,7 @@ class MiCamara extends Component {
                             </View>
                         </>
                         :
-                        <>
+                        <View style={styles.prueba}>
                             <Camera
                             style={styles.CameraBody}
                             type={Camera.Constants.Type.back}
@@ -97,7 +96,7 @@ class MiCamara extends Component {
                                     <Text>Tomar la foto</Text>
                                 </TouchableOpacity>
                             </View>
-                        </>
+                        </View>
                     :
                     <Text>No tenes permiso para usar la Camara</Text>
                 }
@@ -108,10 +107,17 @@ class MiCamara extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        alignItems: 'center'
+    },
+    prueba: {
+        height: 500
     },
     camara:{
       flex:7  
+    },
+    image: {
+        height: 500
     },
     button:{
         flex:1,
@@ -119,7 +125,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     CameraBody:{
-        flex:7,
+        height: 1000,
+        width: 1000,
+        //flex: 7
     },
 })
 

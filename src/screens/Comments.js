@@ -45,7 +45,7 @@ class Comments extends Component {
     }
 
     deleteComment(borrarComment){
-        db.collection('posts').where('createdAt','==',borrarComment)
+        db.collection('').where('createdAt','==',borrarComment)
         .onSnapshot(
             docs => {
               console.log(docs);
