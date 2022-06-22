@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, {Component} from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 import firebase from 'firebase'
@@ -8,6 +8,7 @@ import {auth, db} from '../firebase/config'
 class Post extends Component {
     
     constructor(props){
+        
         super(props)
         this.state={
             cantLikes:0,
@@ -15,11 +16,13 @@ class Post extends Component {
             arrLikes:[],
             arrSubMessages:[]
         }
+        console.log(props)
     }
 
     componentDidMount(){
         const documento = this.props.info.data
-        const estaMiLike = documento.likes.includes(auth.currentUser.email)
+        console.log(this.props)
+        const estaMiLike = documento.likes? documento.likes.includes(auth.currentUser.email):false
         
         if(documento.likes){
             this.setState({
@@ -63,7 +66,18 @@ class Post extends Component {
         .catch(error=> console.log(error))
     }
     
-
+    deletePost(){
+        db.collection('posts').where('createdAt','==',this.props.info.data.createdAt)
+        .onSnapshot(
+            docs => {
+              console.log(docs);
+              docs.forEach( doc => {
+                doc.ref.delete()
+              })
+            }
+          ) 
+    
+    }
 
     render(){
         const documento = this.props.info.data
@@ -71,6 +85,7 @@ class Post extends Component {
             <>
                 <View style={styles.container}>
                     <View>
+                    <Image source={{uri:this.props.info.data.foto}}style={styles.Fotos}/>
                         <Text style={styles.messageOwner}>{documento.owner}</Text>
                         <Text style={styles.messageText}>{documento.message}</Text>
                     </View>
@@ -95,6 +110,12 @@ class Post extends Component {
                 onPress={() => this.props.navigation.navigate('Comments', {id: this.props.info.id})}
                 >
                     <Text>Comentar este mensaje</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                onPress={()=>this.deletePost()}
+                style={styles.btnComment}
+                >
+                    <Text>Borrar</Text>
                 </TouchableOpacity>
             </>
         )
@@ -126,6 +147,10 @@ const styles= StyleSheet.create({
     likesCounter:{
         marginRight:8,
 
+    },
+    Fotos:{
+        height: 500,
+        width: 500
     }
 })
 

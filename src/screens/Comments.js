@@ -43,6 +43,19 @@ class Comments extends Component {
         }
 
     }
+
+    deleteComment(borrarComment){
+        db.collection('posts').where('createdAt','==',borrarComment)
+        .onSnapshot(
+            docs => {
+              console.log(docs);
+              docs.forEach( doc => {
+                doc.ref.delete()
+              })
+            }
+          ) 
+    
+    }
     
     render(){
         return (
@@ -53,12 +66,18 @@ class Comments extends Component {
             renderItem={ ( {item} ) => <View style={styles.comment}>
                 <Text>{item.owner}</Text>
                 <Text>{item.description}</Text>
+                <TouchableOpacity 
+                onPress={()=>this.deleteComment(item.createdAt)}
+                style={styles.btnComment}
+                >
+                    <Text>Borrar</Text>
+                </TouchableOpacity>
             </View>
         }
             />
             <View>
                 <TextInput
-                placeholder='Agrega tu comentario'
+                placeholder='comment'
                 onChangeText={
                     (text) => this.setState({nuevoComentario : text})
                 }
@@ -72,6 +91,7 @@ class Comments extends Component {
                 >
                     <Text>Enviar</Text>
                 </TouchableOpacity>
+                
             </View>
           </View>
         )
@@ -98,7 +118,7 @@ const styles = StyleSheet.create({
       width:'80%'
     },
     btnComment:{
-      width:'20%',
+      width:'80%',
       padding:10,
       backgroundColor:'#d3d3d3'
   
